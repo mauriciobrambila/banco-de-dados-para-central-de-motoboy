@@ -6,7 +6,7 @@ export default async function Conectar(){
     }
 
     const conexao = await mysql.createConnection({
-        host:"localhost",
+        host:"127.0.0.1",
         user:"aluno15-pfsii",
         port:3306, 
         password:"fMv9LOO0NxxGDEDNktBA",
