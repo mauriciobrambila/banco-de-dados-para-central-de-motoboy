@@ -17,7 +17,7 @@ export default class AgendamentoCTRL{
                     resposta.status(200).json({
                         status:true,
                         Registro: agendamento.registro,
-                        mensagem: "Visita agendada com sucesso!!" + "\ Registro: " + agendamento.registro,
+                        mensagem: "Visita agendada com sucesso!!" + "\ Registro: " + agendamento.registro
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({

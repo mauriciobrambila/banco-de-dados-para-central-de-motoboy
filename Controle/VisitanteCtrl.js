@@ -19,7 +19,7 @@ export default class VisitanteCTRL{
                     resposta.status(200).json({
                         status:true,
                         Código: visitante.codigo,
-                        mensagem: "Visitante gravado com sucesso!!" + "\ Código: " + visitante.codigo,
+                        mensagem: "Visitante gravado com sucesso!!" + "\ Código: " + visitante.codigo
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
