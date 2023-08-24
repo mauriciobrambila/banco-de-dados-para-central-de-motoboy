@@ -1,4 +1,4 @@
-import AgendamentoBD from '../Persistencia(A)/AgendamentoBD.js';
+import AgendamentoBD from '../Persistencia/AgendamentoBD.js';
 export default class Agendamento{
 
     #registro;

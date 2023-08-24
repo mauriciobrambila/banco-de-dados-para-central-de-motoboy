@@ -1,4 +1,4 @@
-import Agendamento from '../Modelo(A)/Agendamento.js';
+import Agendamento from '../Modelo/Agendamento.js';
 import Conectar from './Conexao.js';
 export default class AgendamentoBD{
 

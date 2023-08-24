@@ -1,4 +1,4 @@
-import Agendamento from '../Modelo(A)/Agendamento.js'; 
+import Agendamento from '../Modelo/Agendamento.js'; 
 export default class AgendamentoCTRL{
 
     gravar(requisiçao, resposta){
