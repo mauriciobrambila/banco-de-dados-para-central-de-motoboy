@@ -9,7 +9,7 @@ export default async function Conectar(){
         host:"127.0.0.1",
         user:"aluno15-pfsii",
         port:3306,
-        password:"cQbytcw5eQ9jDsXDzLyi",
+        password:"2sQBdmDjddPXaobu7N5V",
         database:"backendvisitantes"
     });
 
