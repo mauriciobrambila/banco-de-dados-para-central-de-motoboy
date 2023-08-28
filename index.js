@@ -13,6 +13,6 @@ app.use('/visitantes', rotaVisitante);
 app.use('/agendamento', rotaAgendamento);
 
 
-app.listen(4015, '127.0.0.1', ()=>{
+app.listen(4015, '0.0.0.0', ()=>{
     console.log("Backend ouvindo em http://localhost:3005")
 })
