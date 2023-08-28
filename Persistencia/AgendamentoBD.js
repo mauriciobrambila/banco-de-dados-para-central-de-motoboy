@@ -8,7 +8,7 @@ export default class AgendamentoBD{
             const sql = "INSERT INTO agendamentos(visitante, data, horaEntrada, horaSaida, observacao) VALUES(?,?,?,?,?)";
             const valores = [agendamento.visitante, agendamento.data, agendamento.horaEntrada, agendamento.horaSaida, agendamento.observacao];
             const resultado = await conexao.query(sql, valores);
-            global.poolConexoes.release(conexao);
+            conexao.release();
             return await resultado[0].insertId;
         }
     }
@@ -19,7 +19,7 @@ export default class AgendamentoBD{
             const sql = "UPDATE agendamentos SET visitante=?, data=?, horaEntrada=?, horaSaida=?, observacao=? WHERE registro=?";
             const valores = [agendamento.visitante, agendamento.data, agendamento.horaEntrada, agendamento.horaSaida, agendamento.observacao, agendamento.registro];
             await conexao.query(sql, valores);
-            global.poolConexoes.release(conexao);
+            conexao.release();
         }
     }
 
@@ -29,7 +29,7 @@ export default class AgendamentoBD{
             const sql = "DELETE FROM agendamentos WHERE registro=?";
             const valores = [agendamento.registro];
             await conexao.query(sql, valores);
-            global.poolConexoes.release(conexao);
+            conexao.release();
         }
     }
 
@@ -38,7 +38,7 @@ export default class AgendamentoBD{
         const sql = "SELECT * FROM agendamentos WHERE visitante LIKE ?";
         const valores = ['%' + termo + '%']
         const [rows] = await conexao.query(sql, valores);
-        global.poolConexoes.release(conexao);
+        conexao.release();
         const listaAgendamentos = [];
         for (const row of rows){
             const agendamento = new Agendamento(row['registro'], row['visitante'], row['data'], row['horaEntrada'], row['horaSaida'], row['observacao']);

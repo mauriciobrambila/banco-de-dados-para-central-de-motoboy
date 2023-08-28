@@ -8,7 +8,7 @@ export default class VisitanteBD{
             const sql = "INSERT INTO newvisitantes(nome, sobrenome, cpf, rg, telefone, data, observacao) VALUES(?,?,?,?,?,?,?)";
             const valores = [visitante.nome, visitante.sobrenome, visitante.cpf, visitante.rg, visitante.telefone, visitante.data, visitante.observacao];
             const resultado = await conexao.query(sql, valores);
-            global.poolConexoes.release(conexao);
+            conexao.release();
             return await resultado[0].insertId;
         }
     }
@@ -19,7 +19,7 @@ export default class VisitanteBD{
             const sql = "UPDATE newvisitantes SET nome=?, sobrenome=?, cpf=?, rg=?, telefone=?, data=?, observacao=? WHERE codigo=?";
             const valores = [visitante.nome, visitante.sobrenome, visitante.cpf, visitante.rg, visitante.telefone, visitante.data, visitante.observacao, visitante.codigo];
             await conexao.query(sql, valores);
-            global.poolConexoes.release(conexao);
+            conexao.release();
         }
     }
 
@@ -29,7 +29,7 @@ export default class VisitanteBD{
             const sql = "DELETE FROM newvisitantes WHERE codigo=?";
             const valores = [visitante.codigo];
             await conexao.query(sql, valores);
-            global.poolConexoes.release(conexao);
+            conexao.release();
         }
     }
 
@@ -38,7 +38,7 @@ export default class VisitanteBD{
         const sql = "SELECT * FROM newvisitantes WHERE nome LIKE ?";
         const valores = ['%' + termo + '%']
         const [rows] = await conexao.query(sql, valores);
-        global.poolConexoes.release(conexao);
+        conexao.release();
         const listaVisitantes = [];
         for (const row of rows){
             const visitante = new Visitante(row['codigo'], row['nome'], row['sobrenome'], row['cpf'], row['rg'], row['telefone'], row['data'], row['observacao']);
