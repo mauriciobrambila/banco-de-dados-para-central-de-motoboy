@@ -8,9 +8,10 @@ export default class Visitante{
     #rg;
     #telefone;
     #data;
+    #codCategoria;
     #observacao;
 
-    constructor(codigo, nome, sobrenome, cpf, rg, telefone, data, observacao){
+    constructor(codigo, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao){
         this.#codigo = codigo;
         this.#nome = nome;
         this.#sobrenome = sobrenome;
@@ -18,6 +19,7 @@ export default class Visitante{
         this.#rg = rg;
         this.#telefone = telefone;
         this.#data = data;
+        this.#codCategoria = codCategoria;
         this.#observacao = observacao
     }
 
@@ -77,6 +79,14 @@ export default class Visitante{
         this.#data = novaData
     }
 
+    get codCategoria(){
+        return this.#codCategoria
+    }
+
+    set codCategoria(novoCodCategoria){
+        this.#codCategoria = novoCodCategoria
+    }
+
     get observacao(){
         return this.#observacao
     }
@@ -88,20 +98,21 @@ export default class Visitante{
 
     toJSON(){
         return{
-            "codigo"     : this.#codigo,
-            "nome"       : this.#nome,
-            "sobrenome"  : this.#sobrenome,
-            "cpf"        : this.#cpf,
-            "rg"         : this.#rg,
-            "telefone"   : this.#telefone,
-            "data"       : this.#data,
-            "observacao" : this.#observacao
+            "codigo"        : this.#codigo,
+            "nome"          : this.#nome,
+            "sobrenome"     : this.#sobrenome,
+            "cpf"           : this.#cpf,
+            "rg"            : this.#rg,
+            "telefone"      : this.#telefone,
+            "data"          : this.#data,
+            "codCategoria"  : this.#codCategoria,
+            "observacao"    : this.#observacao
         }
     }
 
     async gravar(){
         const visitanteBD = new VisitanteBD();
-        this.codigo = await visitanteBD.incluir(this);
+        this.#codigo = await visitanteBD.incluir(this);
     }
 
     async atualizar(){

@@ -1,12 +1,20 @@
 import Visitante from '../Modelo/Visitante.js';
+import Categoria from '../Modelo/Categoria.js';
 import Conectar from './Conexao.js';
 export default class VisitanteBD{
 
     async incluir(visitante){
         if(visitante instanceof Visitante){
             const conexao = await Conectar();
-            const sql = "INSERT INTO newvisitantes(nome, sobrenome, cpf, rg, telefone, data, observacao) VALUES(?,?,?,?,?,?,?)";
-            const valores = [visitante.nome, visitante.sobrenome, visitante.cpf, visitante.rg, visitante.telefone, visitante.data, visitante.observacao];
+            const sql = "INSERT INTO newvisitantes(nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao) VALUES(?,?,?,?,?,?,?,?)";
+            const valores = [visitante.nome, 
+                             visitante.sobrenome, 
+                             visitante.cpf, 
+                             visitante.rg, 
+                             visitante.telefone, 
+                             visitante.data, 
+                             visitante.codCategoria, 
+                             visitante.observacao];
             const resultado = await conexao.query(sql, valores);
             conexao.release();
             return await resultado[0].insertId;
@@ -16,8 +24,16 @@ export default class VisitanteBD{
     async alterar(visitante){
         if(visitante instanceof Visitante){
             const conexao = await Conectar();
-            const sql = "UPDATE newvisitantes SET nome=?, sobrenome=?, cpf=?, rg=?, telefone=?, data=?, observacao=? WHERE codigo=?";
-            const valores = [visitante.nome, visitante.sobrenome, visitante.cpf, visitante.rg, visitante.telefone, visitante.data, visitante.observacao, visitante.codigo];
+            const sql = "UPDATE newvisitantes SET nome=?, sobrenome=?, cpf=?, rg=?, telefone=?, data=?, codCategoria=?, observacao=? WHERE codigo=?";
+            const valores = [visitante.nome, 
+                             visitante.sobrenome, 
+                             visitante.cpf, 
+                             visitante.rg, 
+                             visitante.telefone, 
+                             visitante.data, 
+                             visitante.codCategoria, 
+                             visitante.observacao, 
+                             visitante.codigo];
             await conexao.query(sql, valores);
             conexao.release();
         }
@@ -35,17 +51,16 @@ export default class VisitanteBD{
 
     async consultar(termo){
         const conexao = await Conectar();
-        const sql = "SELECT * FROM newvisitantes WHERE nome LIKE ?";
-        const valores = ['%' + termo + '%']
+        const sql = "SELECT nv.*, c.nome AS categoria_nome, c.codigo AS categoria_codigo FROM newvisitantes as nv INNER JOIN categorias as c ON nv.codCategoria = c.codigo WHERE nv.nome LIKE ?";
+        const valores = ['%' + termo + '%'];
         const [rows] = await conexao.query(sql, valores);
         conexao.release();
         const listaVisitantes = [];
         for (const row of rows){
-            const visitante = new Visitante(row['codigo'], row['nome'], row['sobrenome'], row['cpf'], row['rg'], row['telefone'], row['data'], row['observacao']);
+            const categoria = new Categoria(row['categoria_codigo'], row['categoria_nome']);
+            const visitante = new Visitante(row['codigo'], row['nome'], row['sobrenome'], row['cpf'], row['rg'], row['telefone'], row['data'], categoria, row['observacao']);
             listaVisitantes.push(visitante);
         }
         return listaVisitantes;
     }
-
-    
 }

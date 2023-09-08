@@ -5,11 +5,13 @@ export default async function Conectar(){
         return await global.poolconexao.getConnection();
     }
 
-    const poolconexao = await mysql.createPool({
+    const poolconexao = mysql.createPool({
         host:"127.0.0.1",
-        user:"aluno15-pfsii",
-        port:3306,
-        password:"2sQBdmDjddPXaobu7N5V",
+        user:"root",
+        /* user:"aluno15-pfsii",
+        /* port:3306, */
+        password:"",
+        /* password:"2sQBdmDjddPXaobu7N5V", */
         database:"backendvisitantes",
         waitForConnections: true,
         connectionLimit: 10,
@@ -23,15 +25,3 @@ export default async function Conectar(){
     global.poolconexao = poolconexao;
     return await poolconexao.getConnection();
 }
-
-    // const conexao = await mysql.createConnection({
-    //     host:"127.0.0.1",
-    //     user:"aluno15-pfsii",
-    //     port:3306,
-    //     password:"2sQBdmDjddPXaobu7N5V",
-    //     database:"backendvisitantes"
-    // });
-
-    // global.conexao = conexao;
-
-    // return conexao;

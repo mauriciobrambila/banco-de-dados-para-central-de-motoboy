@@ -1,6 +1,5 @@
-import Categoria from '../Modelo/Categoria.js';
-import Visitante from '../Modelo/Visitante.js'; 
-export default class VisitanteCTRL{
+import Categoria from '../Modelo/Categoria.js'; 
+export default class CategoriaCTRL{
 
     gravar(requisiçao, resposta){
         resposta.type("application/json");
@@ -8,21 +7,14 @@ export default class VisitanteCTRL{
         if(requisiçao.method === "POST" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
             const nome = dados.nome;
-            const sobrenome = dados.sobrenome;
-            const cpf = dados.cpf;
-            const rg = dados.rg;
-            const telefone = dados.telefone;
-            const data = dados.data;
-            const codCategoria = dados.codCategoria;
             const observacao = dados.observacao;
-            const categoria = new Categoria(0,"").consultarCodigo(codCategoria).then((categoria)=>{
-                if(categoria){
-                    const visitante = new Visitante(0, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao);
-                visitante.gravar().then(()=>{
+            if(nome && observacao){
+                const categoria = new Categoria(0, nome, observacao);
+                categoria.gravar().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        Código: visitante.codigo,
-                        mensagem: "Visitante gravado com sucesso!!"
+                        Código: categoria.codigo,
+                        mensagem: "Categoria registrada!" + "\ Código: " + categoria.codigo
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -34,18 +26,18 @@ export default class VisitanteCTRL{
             else{
                 resposta.status(400).json({
                     status:false,
-                    mensagem:"Categoria não encontrada!"
+                    mensagem:"Informe adequadamente todos os dados da categoria conforme a documentação da API"
                 });
-            }})
+            }
         }
         else{
             resposta.status(400).json({ 
                 status:false,
-                mensagem:"Método não permitido ou visitante no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem:"Método não permitido ou categoria no formato JSON não fornecido! Consulte a documentação da API"
             });
-            }
+        }
     }
-    
+
     atualizar(requisiçao, resposta){
         resposta.type("application/json");
 
@@ -53,21 +45,13 @@ export default class VisitanteCTRL{
             const dados = requisiçao.body;
             const codigo = dados.codigo;
             const nome = dados.nome;
-            const sobrenome = dados.sobrenome;
-            const cpf = dados.cpf;
-            const rg = dados.rg;
-            const telefone = dados.telefone;
-            const data = dados.data;
-            const codCategoria = dados.codCategoria;
             const observacao = dados.observacao;
-            const categoria = new Categoria(0,"").consultar(codCategoria).then((categoria)=>{
-                if(categoria){
-                    const visitante = new Visitante(0, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao);
-                visitante.atualizar().then(()=>{
+            if(codigo && nome && observacao){
+                const categoria = new Categoria(codigo, nome, observacao);
+                categoria.atualizar().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        Código: visitante.codigo,
-                        mensagem: "Visitante atualizado com sucesso!!"
+                        mensagem: "Categoria atualizada com sucesso!!"
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -79,16 +63,16 @@ export default class VisitanteCTRL{
             else{
                 resposta.status(400).json({
                     status:false,
-                    mensagem:"Categoria não encontrada!"
+                    mensagem:"Informe adequadamente todos os dados da categoria conforme a documentação da API"
                 });
-            }})
+            }
         }
         else{
             resposta.status(400).json({ 
                 status:false,
-                mensagem:"Método não permitido ou visitante no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem:"Método não permitido ou categoria no formato JSON não fornecido! Consulte a documentação da API"
             });
-            }
+        }
     }
 
     excluir(requisiçao, resposta){
@@ -98,11 +82,11 @@ export default class VisitanteCTRL{
             const dados = requisiçao.body;
             const codigo = dados.codigo;
             if(codigo){
-                const visitante = new Visitante(codigo);
-                visitante.removerDoBancoDados().then(()=>{
+                const categoria = new Categoria(codigo);
+                categoria.removerDoBancoDados().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        mensagem: "Visitante excluído com sucesso!!"
+                        mensagem: "Categoria excluída com sucesso!!"
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -114,14 +98,14 @@ export default class VisitanteCTRL{
             else{
                 resposta.status(400).json({
                     status:false,
-                    mensagem:"Informe codigo do visitante conforme a documentação da API"
+                    mensagem:"Informe codigo da categoria conforme a documentação da API"
                 });
             }
         }
         else{
             resposta.status(400).json({ 
                 status:false,
-                mensagem:"Método não permitido ou visitante no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem:"Método não permitido ou categoria no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
@@ -130,9 +114,9 @@ export default class VisitanteCTRL{
         resposta.type("application/json");
 
         if(requisiçao.method === "GET"){
-                const visitante = new Visitante();
-                visitante.consultar('').then((visitantes)=>{
-                    resposta.status(200).json(visitantes);
+                const categoria = new Categoria();
+                categoria.consultar('').then((categorias)=>{
+                    resposta.status(200).json(categorias);
                 }).catch((erro) => {
                     resposta.status(500).json({
                         status:false,
