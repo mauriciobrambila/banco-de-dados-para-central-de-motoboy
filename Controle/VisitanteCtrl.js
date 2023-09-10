@@ -62,7 +62,7 @@ export default class VisitanteCTRL{
             const observacao = dados.observacao;
             const categoria = new Categoria(0,"").consultar(codCategoria).then((categoria)=>{
                 if(categoria){
-                    const visitante = new Visitante(0, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao);
+                    const visitante = new Visitante(codigo, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao);
                 visitante.atualizar().then(()=>{
                     resposta.status(200).json({
                         status:true,
