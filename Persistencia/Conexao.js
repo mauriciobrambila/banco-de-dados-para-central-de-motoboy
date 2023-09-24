@@ -7,9 +7,11 @@ export default async function Conectar(){
 
     const poolconexao = mysql.createPool({
         host:"127.0.0.1", 
-        user:"aluno15-pfsii", 
+        user:"root",
+        //user:"aluno15-pfsii", 
         port:3306, 
-        password:"2sQBdmDjddPXaobu7N5V",
+        password:"",
+        //password:"2sQBdmDjddPXaobu7N5V",
         database:"backendvisitantes", 
         waitForConnections: true, 
         connectionLimit: 10, 

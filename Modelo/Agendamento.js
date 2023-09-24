@@ -2,19 +2,17 @@ import AgendamentoBD from '../Persistencia/AgendamentoBD.js';
 export default class Agendamento{
 
     #registro;
-    #visitante;
     #data;
     #horaEntrada;
     #horaSaida;
-    #observacao;
+    #listaVisitantes;
 
-    constructor(registro, visitante, data, horaEntrada, horaSaida, observacao){
+    constructor(registro, data, horaEntrada, horaSaida, listaVisitantes){
         this.#registro = registro;
-        this.#visitante = visitante;
         this.#data = data;
         this.#horaEntrada = horaEntrada;
         this.#horaSaida = horaSaida;
-        this.#observacao = observacao
+        this.#listaVisitantes = listaVisitantes
     }
 
     get registro(){
@@ -23,14 +21,6 @@ export default class Agendamento{
 
     set registro(novoRegistro){
         this.#registro = novoRegistro
-    }
-    
-    get visitante(){
-        return this.#visitante
-    }
-
-    set visitante(novoVisitante){
-        this.#visitante = novoVisitante
     }
 
     get horaEntrada(){
@@ -57,29 +47,28 @@ export default class Agendamento{
         this.#data = novaData
     }
 
-    get observacao(){
-        return this.#observacao
+    get listaVisitantes(){
+        return this.#listaVisitantes
     }
 
-    set observacao(novaObservacao){
-        this.#observacao = novaObservacao
+    set listaVisitantes(novaListaVisitantes){
+        this.#listaVisitantes = novaListaVisitantes
     }
 
-
+    
     toJSON(){
         return{
-            "registro"     : this.#registro,
-            "visitante"    : this.#visitante,
-            "data"         : this.#data,
-            "horaEntrada"  : this.#horaEntrada,
-            "horaSaida"    : this.#horaSaida,
-            "observacao"   : this.#observacao
+            "registro"       : this.#registro,
+            "data"           : this.#data,
+            "horaEntrada"    : this.#horaEntrada,
+            "horaSaida"      : this.#horaSaida,
+            "visitantes"     : this.#listaVisitantes
         }
     }
 
     async gravar(){
         const agendamentoBD = new AgendamentoBD();
-        this.registro = await agendamentoBD.incluir(this);
+        await agendamentoBD.incluir(this);
     }
 
     async atualizar(){
@@ -92,9 +81,10 @@ export default class Agendamento{
         await agendamentoBD.excluir(this);
     }
 
-    async consultar(termo){
+    async consultar(){
         const agendamentoBD = new AgendamentoBD();
-        const agendamentos = await agendamentoBD.consultar(termo);
+        const agendamentos = await agendamentoBD.consultar();
         return agendamentos;
     }
+
 }

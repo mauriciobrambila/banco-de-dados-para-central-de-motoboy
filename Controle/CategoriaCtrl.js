@@ -6,15 +6,15 @@ export default class CategoriaCTRL{
 
         if(requisiçao.method === "POST" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
-            const nome = dados.nome;
-            const observacao = dados.observacao;
-            if(nome && observacao){
-                const categoria = new Categoria(0, nome, observacao);
+            const descricao = dados.descricao;
+            const abrangentes = dados.abrangentes;
+            if(descricao && abrangentes){
+                const categoria = new Categoria(0, descricao, abrangentes);
                 categoria.gravar().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        Código: categoria.codigo,
-                        mensagem: "Categoria registrada!" + "\ Código: " + categoria.codigo
+                        Código: categoria.codigoCat,
+                        mensagem: "Categoria registrada!" + "\ Código: " + categoria.codigoCat
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -43,11 +43,11 @@ export default class CategoriaCTRL{
 
         if(requisiçao.method === "PUT" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
-            const codigo = dados.codigo;
-            const nome = dados.nome;
-            const observacao = dados.observacao;
-            if(codigo && nome && observacao){
-                const categoria = new Categoria(codigo, nome, observacao);
+            const codigoCat = dados.codigoCat;
+            const descricao = dados.descricao;
+            const abrangentes = dados.abrangentes;
+            if(codigoCat && descricao && abrangentes){
+                const categoria = new Categoria(codigoCat, descricao, abrangentes);
                 categoria.atualizar().then(()=>{
                     resposta.status(200).json({
                         status:true,
@@ -80,9 +80,9 @@ export default class CategoriaCTRL{
 
         if(requisiçao.method === "DELETE" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
-            const codigo = dados.codigo;
-            if(codigo){
-                const categoria = new Categoria(codigo);
+            const codigoCat = dados.codigoCat;
+            if(codigoCat){
+                const categoria = new Categoria(codigoCat);
                 categoria.removerDoBancoDados().then(()=>{
                     resposta.status(200).json({
                         status:true,

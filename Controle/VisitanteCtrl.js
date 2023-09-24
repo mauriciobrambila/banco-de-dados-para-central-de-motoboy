@@ -12,12 +12,12 @@ export default class VisitanteCTRL{
             const cpf = dados.cpf;
             const rg = dados.rg;
             const telefone = dados.telefone;
-            const data = dados.data;
+            const dataCadastro = dados.dataCadastro;
             const codCategoria = dados.codCategoria;
             const observacao = dados.observacao;
             const categoria = new Categoria(0,"").consultarCodigo(codCategoria).then((categoria)=>{
                 if(categoria){
-                    const visitante = new Visitante(0, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao);
+                    const visitante = new Visitante(0, nome, sobrenome, cpf, rg, telefone, dataCadastro, codCategoria, observacao);
                 visitante.gravar().then(()=>{
                     resposta.status(200).json({
                         status:true,
@@ -57,12 +57,12 @@ export default class VisitanteCTRL{
             const cpf = dados.cpf;
             const rg = dados.rg;
             const telefone = dados.telefone;
-            const data = dados.data;
+            const dataCadastro = dados.dataCadastro;
             const codCategoria = dados.codCategoria;
             const observacao = dados.observacao;
             const categoria = new Categoria(0,"").consultar(codCategoria).then((categoria)=>{
                 if(categoria){
-                    const visitante = new Visitante(codigo, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao);
+                    const visitante = new Visitante(codigo, nome, sobrenome, cpf, rg, telefone, dataCadastro, codCategoria, observacao);
                 visitante.atualizar().then(()=>{
                     resposta.status(200).json({
                         status:true,

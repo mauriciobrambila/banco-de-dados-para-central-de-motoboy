@@ -7,18 +7,18 @@ export default class Visitante{
     #cpf;
     #rg;
     #telefone;
-    #data;
+    #dataCadastro;
     #codCategoria;
     #observacao;
 
-    constructor(codigo, nome, sobrenome, cpf, rg, telefone, data, codCategoria, observacao){
+    constructor(codigo, nome, sobrenome, cpf, rg, telefone, dataCadastro, codCategoria, observacao){
         this.#codigo = codigo;
         this.#nome = nome;
         this.#sobrenome = sobrenome;
         this.#cpf = cpf;
         this.#rg = rg;
         this.#telefone = telefone;
-        this.#data = data;
+        this.#dataCadastro = dataCadastro;
         this.#codCategoria = codCategoria;
         this.#observacao = observacao
     }
@@ -71,12 +71,12 @@ export default class Visitante{
         this.#telefone = novoTelefone
     }
 
-    get data(){
-        return this.#data
+    get dataCadastro(){
+        return this.#dataCadastro
     }
 
-    set data(novaData){
-        this.#data = novaData
+    set dataCadastro(novaDataCadastro){
+        this.#dataCadastro = novaDataCadastro
     }
 
     get codCategoria(){
@@ -104,7 +104,7 @@ export default class Visitante{
             "cpf"           : this.#cpf,
             "rg"            : this.#rg,
             "telefone"      : this.#telefone,
-            "data"          : this.#data,
+            "dataCadastro"  : this.#dataCadastro,
             "codCategoria"  : this.#codCategoria,
             "observacao"    : this.#observacao
         }

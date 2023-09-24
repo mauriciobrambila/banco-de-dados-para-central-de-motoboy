@@ -1,46 +1,46 @@
 import CategoriaBD from '../Persistencia/CategoriaBD.js';
 export default class Categoria{
 
-    #codigo;
-    #nome;
-    #observacao;
+    #codigoCat;
+    #descricao;
+    #abrangentes;
 
-    constructor(codigo, nome, observacao){
-        this.#codigo = codigo;
-        this.#nome = nome;
-        this.#observacao = observacao
+    constructor(codigoCat, descricao, abrangentes){
+        this.#codigoCat = codigoCat;
+        this.#descricao = descricao;
+        this.#abrangentes = abrangentes
     }
 
-    get codigo(){
-        return this.#codigo
+    get codigoCat(){
+        return this.#codigoCat
     }
 
-    set codigo(novoCodigo){
-        this.#codigo = novoCodigo
+    set codigoCat(novoCodigoCat){
+        this.#codigoCat = novoCodigoCat
     }
     
-    get nome(){
-        return this.#nome
+    get descricao(){
+        return this.#descricao
     }
 
-    set nome(novoNome){
-        this.#nome = novoNome
+    set descricao(novaDescricao){
+        this.#descricao = novaDescricao
     }
 
-    get observacao(){
-        return this.#observacao
+    get abrangentes(){
+        return this.#abrangentes
     }
 
-    set observacao(novaObservacao){
-        this.#observacao = novaObservacao
+    set abrangentes(novosAbrangentes){
+        this.#abrangentes = novosAbrangentes
     }
 
 
     toJSON(){
         return{
-            "codigo"     : this.#codigo,
-            "nome"       : this.#nome,
-            "observacao" : this.#observacao
+            "codigoCat"    : this.#codigoCat,
+            "descricao"   : this.#descricao,
+            "abrangentes" : this.#abrangentes
         }
     }
 
@@ -65,9 +65,9 @@ export default class Categoria{
         return categorias;
     }
 
-    async consultarCodigo(codigo){
+    async consultarCodigo(codigoCat){
         const categoriaBD = new CategoriaBD();
-        const categorias = await categoriaBD.consultarCodigo(codigo);
+        const categorias = await categoriaBD.consultarCodigo(codigoCat);
         return categorias;
     }
 }
