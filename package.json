@@ -1,7 +1,7 @@
 {
-  "name": "bd-visitantes",
+  "name": "bd-motoboys",
   "version": "1.0.0",
-  "description": "Banco de Dados em Node.js criado para rodar a aplicação do Lar São Rafael no componente Visitantes",
+  "description": "Banco de Dados em Node.js Motoboy",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -11,9 +11,9 @@
   "keywords": [
     "bd",
     "bancodedados",
-    "visitantes"
+    "motoboys"
   ],
-  "author": "Felipe Souza",
+  "author": "Mauricio",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

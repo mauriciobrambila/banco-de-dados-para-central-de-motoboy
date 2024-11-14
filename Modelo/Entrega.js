@@ -1,18 +1,18 @@
-import AgendamentoBD from '../Persistencia/AgendamentoBD.js';
-export default class Agendamento{
+import EntregaBD from '../Persistencia/EntregaBD.js';
+export default class Entrega{
 
     #registro;
     #data;
     #horaEntrada;
     #horaSaida;
-    #listaVisitantes;
+    #listaMotoboys;   
 
-    constructor(registro, data, horaEntrada, horaSaida, listaVisitantes){
+    constructor(registro, data, horaEntrada, horaSaida, listaMotoboys){
         this.#registro = registro;
         this.#data = data;
         this.#horaEntrada = horaEntrada;
         this.#horaSaida = horaSaida;
-        this.#listaVisitantes = listaVisitantes
+        this.#listaMotoboys = listaMotoboys
     }
 
     get registro(){
@@ -47,12 +47,12 @@ export default class Agendamento{
         this.#data = novaData
     }
 
-    get listaVisitantes(){
-        return this.#listaVisitantes
+    get listaMotoboys(){
+        return this.#listaMotoboys
     }
 
-    set listaVisitantes(novaListaVisitantes){
-        this.#listaVisitantes = novaListaVisitantes
+    set listaMotoboys(novaListaMotoboys){
+        this.#listaMotoboys = novaListaMotoboys
     }
 
     
@@ -62,29 +62,29 @@ export default class Agendamento{
             "data"           : this.#data,
             "horaEntrada"    : this.#horaEntrada,
             "horaSaida"      : this.#horaSaida,
-            "visitantes"     : this.#listaVisitantes
+            "motoboys"       : this.#listaMotoboys
         }
     }
 
     async gravar(){
-        const agendamentoBD = new AgendamentoBD();
-        await agendamentoBD.incluir(this);
+        const entregaBD = new EntregaBD();
+        await entregaBD.incluir(this);
     }
 
     async atualizar(){
-        const agendamentoBD = new AgendamentoBD();
-        await agendamentoBD.alterar(this);
+        const entregaBD = new EntregaBD();
+        await entregaBD.alterar(this);
     }
 
     async removerDoBancoDados(){
-        const agendamentoBD = new AgendamentoBD();
-        await agendamentoBD.excluir(this);
+        const entregaBD = new EntregaBD();
+        await entregaBD.excluir(this);
     }
 
     async consultar(){
-        const agendamentoBD = new AgendamentoBD();
-        const agendamentos = await agendamentoBD.consultar();
-        return agendamentos;
+        const entregaBD = new EntregaBD();
+        const entregas = await entregaBD.consultar();
+        return entregas;
     }
-
+   
 }

@@ -1,5 +1,5 @@
-import Categoria from '../Modelo/Categoria.js'; 
-export default class CategoriaCTRL{
+import Pedido from '../Modelo/Pedido.js'; 
+export default class PedidoCTRL{
 
     gravar(requisiçao, resposta){
         resposta.type("application/json");
@@ -7,14 +7,13 @@ export default class CategoriaCTRL{
         if(requisiçao.method === "POST" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
             const descricao = dados.descricao;
-            const abrangentes = dados.abrangentes;
-            if(descricao && abrangentes){
-                const categoria = new Categoria(0, descricao, abrangentes);
-                categoria.gravar().then(()=>{
+            if(descricao){
+                const pedido = new Pedido(0, descricao);
+                pedido.gravar().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        Código: categoria.codigoCat,
-                        mensagem: "Categoria registrada!" + "\ Código: " + categoria.codigoCat
+                        mensagem: "Pedido registrado!" + 
+                                    "\n Código: " + pedido.codigo
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -26,14 +25,14 @@ export default class CategoriaCTRL{
             else{
                 resposta.status(400).json({
                     status:false,
-                    mensagem:"Informe adequadamente todos os dados da categoria conforme a documentação da API"
+                    mensagem:"Informe adequadamente todos os dados da pedido conforme a documentação da API"
                 });
             }
         }
         else{
             resposta.status(400).json({ 
                 status:false,
-                mensagem:"Método não permitido ou categoria no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem:"Método não permitido ou pedido no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
@@ -43,15 +42,15 @@ export default class CategoriaCTRL{
 
         if(requisiçao.method === "PUT" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
-            const codigoCat = dados.codigoCat;
+            const codigoPed = dados.codigoPed;
             const descricao = dados.descricao;
-            const abrangentes = dados.abrangentes;
-            if(codigoCat && descricao && abrangentes){
-                const categoria = new Categoria(codigoCat, descricao, abrangentes);
-                categoria.atualizar().then(()=>{
+           
+            if(codigoPed && descricao){
+                const pedido = new Pedido(codigoPed, descricao);
+                pedido.atualizar().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        mensagem: "Categoria atualizada com sucesso!!"
+                        mensagem: "Pedido atualizado com sucesso!!"
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -63,14 +62,14 @@ export default class CategoriaCTRL{
             else{
                 resposta.status(400).json({
                     status:false,
-                    mensagem:"Informe adequadamente todos os dados da categoria conforme a documentação da API"
+                    mensagem:"Informe adequadamente todos os dados da pedido conforme a documentação da API"
                 });
             }
         }
         else{
             resposta.status(400).json({ 
                 status:false,
-                mensagem:"Método não permitido ou categoria no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem:"Método não permitido ou pedido no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
@@ -80,13 +79,13 @@ export default class CategoriaCTRL{
 
         if(requisiçao.method === "DELETE" && requisiçao.is('application/json')){
             const dados = requisiçao.body;
-            const codigoCat = dados.codigoCat;
-            if(codigoCat){
-                const categoria = new Categoria(codigoCat);
-                categoria.removerDoBancoDados().then(()=>{
+            const codigoPed = dados.codigoPed;
+            if(codigoPed){
+                const pedido = new Pedido(codigoPed);
+                pedido.removerDoBancoDados().then(()=>{
                     resposta.status(200).json({
                         status:true,
-                        mensagem: "Categoria excluída com sucesso!!"
+                        mensagem: "Pedido excluído com sucesso!!"
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -98,14 +97,14 @@ export default class CategoriaCTRL{
             else{
                 resposta.status(400).json({
                     status:false,
-                    mensagem:"Informe codigo da categoria conforme a documentação da API"
+                    mensagem:"Informe codigo dapedido conforme a documentação da API"
                 });
             }
         }
         else{
             resposta.status(400).json({ 
                 status:false,
-                mensagem:"Método não permitido ou categoria no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem:"Método não permitido ou pedido no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
@@ -114,15 +113,15 @@ export default class CategoriaCTRL{
         resposta.type("application/json");
 
         if(requisiçao.method === "GET"){
-                const categoria = new Categoria();
-                categoria.consultar('').then((categorias)=>{
-                    resposta.status(200).json(categorias);
+                const pedido = new Pedido();
+                pedido.consultar('').then((pedidos)=>{
+                    resposta.status(200).json(pedidos);
                 }).catch((erro) => {
                     resposta.status(500).json({
                         status:false,
                         mensagem: erro.message
                     })
-                });
+                });      
             }
         else{
             resposta.status(400).json({ 

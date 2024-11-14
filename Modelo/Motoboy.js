@@ -1,25 +1,25 @@
-import VisitanteBD from '../Persistencia/VisitanteBD.js';
-export default class Visitante{
+import MotoboyBD from '../Persistencia/MotoboyBD.js';
+export default class Motoboy{
 
     #codigo;
     #nome;
-    #sobrenome;
+    #endereco;
     #cpf;
-    #rg;
+   
     #telefone;
     #dataCadastro;
-    #codCategoria;
+    #codPedido;
     #observacao;
 
-    constructor(codigo, nome, sobrenome, cpf, rg, telefone, dataCadastro, codCategoria, observacao){
+    constructor(codigo, nome, endereco, cpf, telefone, dataCadastro, codPedido, observacao){
         this.#codigo = codigo;
         this.#nome = nome;
-        this.#sobrenome = sobrenome;
+        this.#endereco = endereco;
         this.#cpf = cpf;
-        this.#rg = rg;
+       
         this.#telefone = telefone;
         this.#dataCadastro = dataCadastro;
-        this.#codCategoria = codCategoria;
+        this.#codPedido = codPedido;
         this.#observacao = observacao
     }
 
@@ -39,12 +39,12 @@ export default class Visitante{
         this.#nome = novoNome
     }
 
-    get sobrenome(){
-        return this.#sobrenome
+    get endereco(){
+        return this.#endereco
     }
 
-    set sobrenome(novoSobrenome){
-        this.#sobrenome = novoSobrenome
+    set endereco(novoEndereco){
+        this.#endereco = novoEndereco
     }
 
     get cpf(){
@@ -55,13 +55,7 @@ export default class Visitante{
         this.#cpf = novoCpf
     }
 
-    get rg(){
-        return this.#rg
-    }
-
-    set rg(novoRg){
-        this.#rg = novoRg
-    }
+   
 
     get telefone(){
         return this.#telefone
@@ -79,12 +73,12 @@ export default class Visitante{
         this.#dataCadastro = novaDataCadastro
     }
 
-    get codCategoria(){
-        return this.#codCategoria
+    get codPedido(){
+        return this.#codPedido
     }
 
-    set codCategoria(novoCodCategoria){
-        this.#codCategoria = novoCodCategoria
+    set codPedido(novoCodPedido){
+        this.#codPedido = novoCodPedido
     }
 
     get observacao(){
@@ -100,34 +94,34 @@ export default class Visitante{
         return{
             "codigo"        : this.#codigo,
             "nome"          : this.#nome,
-            "sobrenome"     : this.#sobrenome,
+            "endereco"      : this.#endereco,
             "cpf"           : this.#cpf,
-            "rg"            : this.#rg,
+           
             "telefone"      : this.#telefone,
             "dataCadastro"  : this.#dataCadastro,
-            "codCategoria"  : this.#codCategoria,
+            "codPedido"     : this.#codPedido,
             "observacao"    : this.#observacao
         }
     }
 
     async gravar(){
-        const visitanteBD = new VisitanteBD();
-        this.#codigo = await visitanteBD.incluir(this);
+        const  motoboyBD = new MotoboyBD();
+        this.#codigo = await motoboyBD.incluir(this);
     }
 
     async atualizar(){
-        const visitanteBD = new VisitanteBD();
-        await visitanteBD.alterar(this);
+        const  motoboyBD = new MotoboyBD();
+        await  motoboyBD.alterar(this);
     }
 
     async removerDoBancoDados(){
-        const visitanteBD = new VisitanteBD();
-        await visitanteBD.excluir(this);
+        const  motoboyBD = new MotoboyBD();
+        await  motoboyBD.excluir(this);
     }
 
     async consultar(termo){
-        const visitanteBD = new VisitanteBD();
-        const visitantes = await visitanteBD.consultar(termo);
-        return visitantes;
+        const  motoboyBD = new MotoboyBD();
+        const  motoboys = await  motoboyBD.consultar(termo);
+        return  motoboys;
     }
-}
+}    
